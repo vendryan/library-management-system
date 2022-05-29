@@ -1,0 +1,65 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/qr.css' %}">
+{% endblock %}
+
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-qr/html5-qrcode.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-add-borrow-return' %}" method="POST">
+        {% csrf_token %}
+    
+        <h2>Borrow/Return Book</h2>
+        <div id="qr-reader"></div>
+        <div class="form-control">
+            <label for="book-id">Book Id</label>
+            <input id="book-id" type="text" name="book-id" required>
+        </div>
+        <div class="form-control">
+            <label for="borrower-id">Borrower Id</label>
+            <input id="borrower-id" type="text" name="borrower-id" required>
+        </div>
+        <div class="form-control">
+            <input id="submit" type="submit" value="Borrow/Return">
+        </div>
+    </form>
+{% endblock %}
+{% block bottom-js %}
+<script type="text/javascript">
+    let is_scanned = false;
+
+    function onScanSuccess(decodedText, decodedResult) {
+        console.log(decodedText);
+        if (decodedText.startsWith('card')) {
+            document.querySelector('#borrower-id').value = decodedText.slice(4);
+        }
+        else {
+            document.querySelector('#book-id').value = decodedText;
+        }
+
+        if (document.querySelector('#borrower-id').value != '' &&
+            document.querySelector('#book-id').value != '' && !is_scanned) {
+            is_scanned = true;
+            document.querySelector('#submit').click();
+        }
+    }
+
+    function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        return;
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader",
+        { fps: 60, qrbox: {width: 200, height: 200} },
+        verbose=false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+{% endblock %}

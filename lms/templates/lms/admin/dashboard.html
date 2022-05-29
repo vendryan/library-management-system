@@ -1,0 +1,59 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin-dashboard.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title text-center margin-bottom10">Dashboard</h1>
+    <section class="dashboard">
+        <div class="book">
+            <h3 class="item-label">Jumlah Buku</h3>
+            <p>{{ book_count }}</p>
+        </div>
+        <div class="borrower">
+            <h3 class="item-label">Jumlah Peminjam</h3>
+            <p>{{ borrower_count }}</p>
+        </div>
+        <div class="author">
+            <h3 class="item-label">Jumlah Penulis</h3>
+            <p>{{ author_count }}</p>
+        </div>
+        <div>
+            <canvas id="borrow-return-chart"></canvas>
+        </div>
+    </section>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        const labels = ['Buku Terpinjam', 'Buku Dikembalikan']
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Borrow Return Chart',
+                data: [{{ borrowed_count }}, {{returned_count}}],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                animations: false,
+            },
+        };
+        const myChart = new Chart(
+            document.getElementById('borrow-return-chart'),
+            config
+        );
+    </script>
+{% endblock %}

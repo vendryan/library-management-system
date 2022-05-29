@@ -1,0 +1,75 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-main.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-table/jstable.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title">Search Book</h1>
+    <a class="button erase-link-default margin-left10" 
+       href="{% url 'lms:admin-add-book' %}">
+       Add
+    </a>
+
+    <table id="basic">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year Published</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.year_published }}</td>
+                    <td>{{ book.quantity }}</td>
+                    <td>{{ book.location }}</td>
+                    <td>
+                        {% for author in book.author_id.all %}
+                            <div class="margin-bottom10">
+                                <span class="muted-tag inline-block">{{ author.name }}</span>{% if not forloop.last %}{% endif %}
+                            </div>
+                            {% empty %}
+                            None
+                        {% endfor %}
+                    </td>
+                    <td>{{ book.publisher_id }}</td>
+                    <td>
+                        {% for category in book.category_id.all %}
+                            <span class="muted-tag">{{ category.name }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a class="button update erase-link-default margin-bottom5" href="{% url 'lms:admin-update-book' book.book_id %}">
+                            Update
+                        </a><br>
+                        <a class="button warning erase-link-default margin-bottom5" href="{% url 'lms:admin-delete-book' book.book_id %}">
+                            Delete
+                        </a><br>
+                        <a class="button muted erase-link-default" href="{% url 'lms:admin-book-detail' book.book_id %}">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        let myTable = new JSTable("#basic");
+    </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-main.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-table/jstable.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title">Search Category</h1>
+    <a class="button erase-link-default margin-left10" 
+       href="{% url 'lms:admin-add-category' %}">
+       Add
+    </a>
+
+    <table id="basic">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>
+                        <a class="button update erase-link-default" href="{% url 'lms:admin-update-category' category.category_id %}">
+                            Update
+                        </a>
+                        <a class="button warning erase-link-default" href="{% url 'lms:admin-delete-category' category.category_id %}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        let myTable = new JSTable("#basic");
+    </script>
+{% endblock %}

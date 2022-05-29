@@ -1,0 +1,81 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-main.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-table/jstable.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title">Search Borrow Log</h1>
+    <div class="table-action">
+        <div>
+            Month
+            <select id="month">
+                <option value="1" {%if month == 1 %}selected{% endif %}>1</option>
+                <option value="2" {%if month == 2 %}selected{% endif %}>2</option>
+                <option value="3" {%if month == 3 %}selected{% endif %}>3</option>
+                <option value="4" {%if month == 4 %}selected{% endif %}>4</option>
+                <option value="5" {%if month == 5 %}selected{% endif %}>5</option>
+                <option value="6" {%if month == 6 %}selected{% endif %}>6</option>
+                <option value="7" {%if month == 7 %}selected{% endif %}>7</option>
+                <option value="8" {%if month == 8 %}selected{% endif %}>8</option>
+                <option value="9" {%if month == 9 %}selected{% endif %}>9</option>
+                <option value="10" {%if month == 10 %}selected{% endif %}>10</option>
+                <option value="11" {%if month == 11 %}selected{% endif %}>11</option>
+                <option value="12" {%if month == 12 %}selected{% endif %}>12</option>
+            </select>
+            <span class="margin-left10"></span>
+            Year
+            <select id="year">
+                {% for year in years %}
+                    <option value="{{ year }}" {%if selected_year == year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <span class="margin-left10"></span>
+            <a id="go-to-url" href="#" class="erase-link-default button add">Go</a>
+            <a id="download" href="{%if month and selected_year %} 
+            {% url 'lms:admin-borrow-log-pdf' month selected_year %}
+            {% else %} # {% endif %}" class="erase-link-default button update">Download</a>
+        </div>
+        
+    </div>
+    <table id="basic">
+        <thead>
+            <tr>
+                <th>Log description</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrow_log in borrow_logs %}
+                <tr>
+                    <td>{{ borrow_log.log_description }}</td>
+                    <td>{{ borrow_log.log_time }}</td>
+                    <td>
+                        <a class="button warning erase-link-default" href="{% url 'lms:admin-delete-borrow-log' borrow_log.id %}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        let myTable = new JSTable("#basic");
+        let borrow_log_url = '{% url 'lms:admin-borrow-log' %}';
+
+        document.querySelector('#go-to-url').onclick = function() {
+            let month = document.querySelector('#month').value;
+            let year = document.querySelector('#year').value;
+            location.href = `${borrow_log_url}/${month}/${year}`;
+        };
+    </script>
+{% endblock %}

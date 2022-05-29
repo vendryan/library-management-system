@@ -1,0 +1,10 @@
+#qr-reader {
+    margin: auto;
+    max-width: 400px;
+}
+
+#qr-reader__dashboard_section_csr button {
+    background-color: coral;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}

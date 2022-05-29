@@ -1,0 +1,21 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-update-category' category.category_id %}" method="POST">
+        {% csrf_token %}
+
+        <h2>Update Category</h2>
+        <div class="form-control">
+            <label>Category name</label>
+            <input type="text" name="name" value="{{ category.name }}" required>
+        </div>
+        <div class="form-control">
+            <input type="submit" value="Update">
+        </div>
+    </form>
+{% endblock %}

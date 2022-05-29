@@ -1,0 +1,23 @@
+/* Font size with 3:4 scale is dramatic enough */
+/* 3, 7, 9, 12, 16, 21, 28, 37, 50, 67, 89, 119, 159, ...  */
+
+html {
+    font-size: 62.5%;  /* Make the rem size 10px :) */
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+    line-height: 1.5;
+    font-size: 1.6rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+h1 { font-size: 3.7rem;}
+h2 { font-size: 2.8rem;}
+h3 { font-size: 2.1rem;}
+h4 { font-size: 1.6rem;}
+h5 { font-size: 1.2rem;}
+h6 { font-size: 0.9rem;}

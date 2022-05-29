@@ -1,0 +1,51 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-main.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-table/jstable.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title">Search Publisher</h1>
+    <a class="button erase-link-default margin-left10" 
+       href="{% url 'lms:admin-add-publisher' %}">
+       Add
+    </a>
+
+    <table id="basic">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publisher in publishers %}
+                <tr>
+                    <td>{{ publisher.name }}</td>
+                    <td>
+                        <a class="button update erase-link-default" href="{% url 'lms:admin-update-publisher' publisher.publisher_id %}">
+                            Update
+                        </a>
+                        <a class="button warning erase-link-default" href="{% url 'lms:admin-delete-publisher' publisher.publisher_id %}">
+                            Delete
+                        </a>
+                        <a class="button muted erase-link-default" href="{% url 'lms:admin-publisher-detail' publisher.publisher_id %}">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        let myTable = new JSTable("#basic");
+    </script>
+{% endblock %}

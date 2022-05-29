@@ -1,0 +1,59 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+{% load qr_code %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table-main.css' %}">
+{% endblock %}
+{% block head-js %}
+    <script type="text/javascript" src="{% static 'js-table/jstable.min.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="table-title">Search Borrower</h1>
+    <a class="button erase-link-default margin-left10" 
+       href="{% url 'lms:admin-add-borrower' %}">
+       Add
+    </a>
+    {# {% qr_from_text "Hello World!" size="M" %} #}
+    <table id="basic">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrower in borrowers %}
+                <tr>
+                    <td>{{ borrower.name }}</td>
+                    <td>{{ borrower.address }}</td>
+                    <td>{{ borrower.contact }}</td>
+                    <td>
+                        <a class="button update erase-link-default margin-bottom15" href="{% url 'lms:admin-update-borrower' borrower.borrower_id %}">
+                            Update
+                        </a>
+                        <a class="button warning erase-link-default margin-bottom5" href="{% url 'lms:admin-delete-borrower' borrower.borrower_id %}">
+                            Delete
+                        </a><br>
+                        <a class="button muted erase-link-default" href="{% url 'lms:admin-member-card' borrower.borrower_id %}">
+                            Member card
+                        </a>
+                        <a class="button muted erase-link-default" href="{% url 'lms:admin-borrower-detail' borrower.borrower_id %}">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        let myTable = new JSTable("#basic");
+    </script>
+{% endblock %}

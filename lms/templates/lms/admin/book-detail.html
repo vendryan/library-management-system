@@ -1,0 +1,50 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'js-table/jstable.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block main %}
+    <h1>{{ book.title }}</h1>
+    <h3 class="author">
+        Author:
+        {% for author in book.author_id.all %}
+            <a href="{% url 'lms:admin-author-detail' author.author_id %}" class="erase-link-default link-color">{{ author.name }}</a>
+            {% if not forloop.last %}<span>, </span>{% endif %}
+            {% empty %}
+                Unknown
+        {% endfor %}
+    </h3>
+    <h2>Details</h2>
+    <section class="details">
+        <p class="info">ISBN</p>
+        <p class="detail">{{ book.book_id }}</p>
+        <p class="info">Quantity</p>
+        <p class="detail">{{ book.quantity }}</p>
+        <p class="info">Year Published</p>
+        <p class="detail">{{ book.year_published }}</p>
+        <p class="info">Location</p>
+        <p class="detail">{{ book.location }}</p>
+        <p class="info">Publisher</p>
+        <p class="detail">{{ book.publisher_id }}</p>
+        <p class="info">Category</p>
+        <p class="detail">
+            {% for category in book.category_id.all %}
+                <span class="muted-tag">{{ category.name }}</span>
+            {% endfor %}
+        </p>
+        <p class="info">Current Borrower</p>
+        <p class="detail">
+            {% for borrow_table in book.borrow_table.all %}
+                <a class="button update"
+                    href="{% url 'lms:admin-borrower-detail' borrow_table.borrower_id.borrower_id %}">
+                    {{ borrow_table.borrower_id.name }}
+                </a>
+                {% empty %}
+                -
+            {% endfor %}
+        </p>
+    </section>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Library Management System</title>
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/typography.css' %}">
+        <link rel="stylesheet" href="{% static 'css/utility.css' %}">
+        <link rel="stylesheet" href="{% static 'css/site-header-and-nav.css' %}">
+        {% block css %}
+        {% endblock %}
+        
+        {% block head-js %}
+        {% endblock %}
+    </head>
+    <body>
+        <header id="site-header">
+            <div>
+                <h1><a class='erase-link-default'
+                    style="color: white;" href="{% url 'lms:index' %}">Library Management System</a></h1>
+            </div>
+            <nav class="nav">
+                <li><a href="{% url 'lms:search-book' %}">Search</a></li>
+                {# Login or admin depending on the session exist or not #}
+                {% if logged_in %}
+                    <li><a href="{% url 'lms:admin-dashboard' %}">Admin</a></li>
+                {% else %}
+                    <li><a href="{% url 'lms:admin-login' %}">Login</a></li>
+                {% endif %}
+            </nav>
+        </header>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+        {% block bottom-js %}
+        {% endblock %}
+    </body>
+</html>

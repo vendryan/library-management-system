@@ -1,0 +1,37 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+{% load qr_code %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/member-card.css' %}">
+{% endblock %}
+
+{% block main %}
+    <button class="button print-btn pointer">Print</button>
+
+    <h1 class="text-center card-title">Member Card</h1>
+    {% qr_from_text qr_text size="M" %}
+    <div class="member-field">
+        <span class="span1">Name</span> 
+        <span class="span2">:</span>
+        <span class="span3">{{ borrower.name }}</span>
+    </div>
+    <div class="member-field">
+        <span class="span1">Address</span> 
+        <span class="span2">:</span>
+        <span class="span3">{{ borrower.address }}</span>
+    </div>
+    <div class="member-field">
+        <span class="span1">Contact</span> 
+        <span class="span2">:</span>
+        <span class="span3">{{ borrower.contact }}</span>
+    </div>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        document.querySelector('.print-btn').onclick = function() {
+            window.print();
+        };
+    </script>
+{% endblock %}

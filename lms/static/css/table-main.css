@@ -1,0 +1,15 @@
+main {
+    max-width: 120rem;
+    padding: 0 2rem;
+    margin: auto;
+}
+
+.table-title {
+    padding-left: 1rem;
+    margin: 2rem 0;
+}
+
+.table-action {
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,34 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-update-borrower' borrower.borrower_id %}" method="POST">
+        {% csrf_token %}
+
+        <h2>Update Borrower</h2>
+        <div class="form-control">
+            <label>Borrower Name</label>
+            <input type="text" name="name" value="{{ borrower.name }}" required>
+        </div>
+        <div class="form-control">
+            <label>Address</label>
+            <input type="text" name="address" value="{{ borrower.address }}" required>
+        </div>
+        <div class="form-control">
+            <label>Contact</label>
+            <input type="text" name="contact" value="{{ borrower.contact }}" required>
+        </div>
+        <div class="form-control">
+            <input type="submit" value="Update">
+        </div>
+    </form>
+{% endblock %}
+
+- Data excel
+- Alasan milih data ato kasus tersebut
+- Algoritma Python ato Knimw
+- Draft dari artikel/jurnalnya

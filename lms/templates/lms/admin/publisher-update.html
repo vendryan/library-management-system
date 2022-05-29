@@ -1,0 +1,21 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-update-publisher' publisher.publisher_id %}" method="POST">
+        {% csrf_token %}
+
+        <h2>Update Publisher</h2>
+        <div class="form-control">
+            <label>Publisher name</label>
+            <input type="text" name="name" value="{{ publisher.name }}" required>
+        </div>
+        <div class="form-control">
+            <input type="submit" value="Update">
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,105 @@
+/* Simple and naive form framework */
+
+main {
+    /* height: calc(100% - 5.2rem); */
+    background-image: 
+        linear-gradient(rgba(218, 184, 250, 0.4), rgba(218, 184, 250, 0.4)), 
+        url('../image/library-bg.jpg');
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100vh - 5.2rem);
+}
+
+
+.form {
+    max-width: 35rem;
+    width: 90%;
+    padding: 25px;
+    margin: 2rem auto;
+    background-color: rgb(3, 3, 113);
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form h2 {
+    margin-bottom: 2rem;
+}
+
+.form .form-control {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+    font-size: 1.6rem;
+}
+
+.form .form-control > p,
+.form .form-control > label{
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.form .form-control input,
+.form .form-control select,
+.form .form-control textarea {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.form .form-control input:focus-visible,
+.form .form-control select:focus-visible,
+.form .form-control textarea:focus-visible {
+    outline: 3px solid blue;
+    box-shadow: none;
+}
+
+/* Radio Button */
+.form .form-control input[type="radio"] {
+    /* appearance: none;
+    border-radius: 50%;
+    border: 2px solid black; */
+    width: 16px;
+    height: 16px;
+    margin-right: 1rem;
+    padding: 0;
+}
+
+.form .form-control input[type="radio"]:checked {
+    border: 6px solid black;
+}
+
+.form .form-control input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin-right: 1rem;
+}
+
+.form .form-control input[type="submit"] {
+    align-self: center;
+    background-color: coral;
+    border-radius: 15px;
+    border: none;
+    padding: 0.5rem 3rem;
+    transition: all 0.3s;
+    color: white;
+}
+
+.form .form-control input[type="submit"]:hover {
+    background-color: rgb(255, 68, 0);
+    border-radius: 15px;
+    border: none;
+    padding: 0.5rem 3rem;
+}
+
+.form .form-control:last-child {
+    margin: 0;
+}

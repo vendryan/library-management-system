@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Library Management System</title>
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/typography.css' %}">
+        <link rel="stylesheet" href="{% static 'css/utility.css' %}">
+        <link rel="stylesheet" href="{% static 'css/site-header-and-nav.css' %}">
+        {% block css %}
+        {% endblock %}
+        
+        {% block head-js %}
+        {% endblock %}
+    </head>
+    <body>
+        <header id="site-header">
+            <div>
+                <h1><a class='erase-link-default'
+                    style="color: white;" href="{% url 'lms:index' %}">Library Management System</a></h1>
+            </div>
+            <nav class="nav">
+                <li><a class="{{ dashboard_nav }}" href="{% url 'lms:admin-dashboard' %}">Dashboard</a></li>
+                <li><a class="{{ borrow_return_nav }}" href="{% url 'lms:admin-borrow-return' %}">Borrow/Return</a></li>
+                <li><a class="{{ book_nav }}" href="{% url 'lms:admin-book' %}">Book</a></li>
+                <li><a class="{{ borrower_nav }}" href="{% url 'lms:admin-borrower' %}">Borrower</a></li>
+                <li><a class="{{ publisher_nav }}" href="{% url 'lms:admin-publisher' %}">Publisher</a></li>
+                <li><a class="{{ author_nav }}" href="{% url 'lms:admin-author' %}">Author</a></li>
+                <li><a class="{{ category_nav }}" href="{% url 'lms:admin-category' %}">Category</a></li>
+                <li><a class="{{ borrow_log_nav }}" href="{% url 'lms:admin-borrow-log' %}">Borrow Log</a></li>
+                <li><a class="warning" href="{% url 'lms:admin-logout' %}">Logout</a></li>
+            </nav>
+        </header>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+        {% block bottom-js %}
+        {% endblock %}
+    </body>
+</html>

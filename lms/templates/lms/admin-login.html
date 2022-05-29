@@ -1,0 +1,30 @@
+{% extends 'lms/visitor-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form-login.css' %}">
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-login' %}" method="POST">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <div class="form-control">
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </div>
+        <div class="form-control">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+        {% if messages %}
+            {# Need to iterate the message so that message will dissapear in next visit #}
+            {% for message in messages %}
+                <p class="red-tag margin-bottom10">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <div class="form-control">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+{% endblock %}

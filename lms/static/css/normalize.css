@@ -1,0 +1,22 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+button {
+    all: unset;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+textarea {
+    overflow: auto;
+}

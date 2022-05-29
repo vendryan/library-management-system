@@ -1,0 +1,102 @@
+{% extends 'lms/admin/admin-layout.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .form .form-control input:focus-visible,
+        .form .form-control select:focus-visible,
+        .form .form-control textarea:focus-visible {
+            outline: none;
+            box-shadow: none;
+        }
+    </style>
+{% endblock %}
+
+{% block head-js %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{% endblock %}
+
+{% block main %}
+    <form class="form" action="{% url 'lms:admin-update-book' book.book_id %}" method="POST">
+        {% csrf_token %}
+
+        <h2>Add Book</h2>
+        <div class="form-control">
+            <label>Book ID (ISBN)</label>
+            <input type="text" name="id" value="{{ book.book_id }}" required>
+        </div>
+        <div class="form-control">
+            <label>Title</label>
+            <input type="text" name="title" value="{{ book.title }}" required>
+        </div>
+        <div class="form-control">
+            <label>Year</label>
+            <input type="number" name="year" value="{{ book.year_published }}" required>
+        </div>
+        <div class="form-control">
+            <label>Quantity</label>
+            <input type="number" name="quantity" value="{{ book.quantity }}" required>
+        </div>
+        <div class="form-control">
+            <label>Location</label>
+            <input type="text" name="location" value="{{ book.location }}" required>
+        </div>
+        <div class="form-control">
+            <label>Author</label>
+            <select class="tag-select" name="author" multiple="multiple">
+                {% for author in book.author_id.all %}
+                    <option value="{{ author.name }}" selected>{{ author.name }}</option>
+                {% endfor %}
+                {% for author in authors %}
+                    <option value="{{ author.name }}">{{ author.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-control">
+            <label>Publisher</label>
+            <select class="tag-select" name="publisher" required>
+                <option value="{{ publisher.name }}" selected>{{ publisher.name }}</option>
+            </select>
+        </div>
+        <div class="form-control">
+            <label>Category</label>
+            <select class="tag-select" name="category" multiple="multiple" required>
+                {% for category in book.category_id.all %}
+                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                {% endfor %}
+                {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-control">
+            <input type="submit" value="Update">
+        </div>
+    </form>
+{% endblock %}
+
+{% block bottom-js %}
+    <script type="text/javascript">
+        // let availableOption = '';
+
+        $(document).ready(function() {
+            $('.tag-select').select2({
+                tags: true,
+                tokenSeperators: [',', ' ']
+            });
+        });
+        
+        // $('.tag-select').on('select2:open', function (e) {
+        //     // Store the available option
+        //     availableOption = Array.prototype.slice.call(e.target.children).map(x => x.value);
+        // });
+
+        // $('.tag-select').on('select2:select', function (e) {
+        //     let test = Array.prototype.slice.call(e.target.children).map(x => x.value);
+        //     console.log(test);
+        // });
+    </script>
+{% endblock %}

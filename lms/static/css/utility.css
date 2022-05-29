@@ -1,0 +1,89 @@
+:root {
+    --warning: #f44336;
+    --update: #008CBA;
+    --add: #4CAF50;
+    --muted: #555555;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.erase-link-default {
+    color: black;
+    text-decoration: none;
+}
+
+
+/* Margin related */
+.margin-left10 {
+    margin-left: 1rem;
+}
+
+.margin-bottom5 {
+    margin-bottom: 0.5rem;
+}
+
+.margin-bottom10 {
+    margin-bottom: 1rem;
+}
+
+.warning {
+    background-color: var(--warning);
+}
+
+/* Good decoration */
+.button {
+    background-color: var(--add);
+    border: none;
+    color: white;
+    padding: 0.5rem 2rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.button.add {
+    background-color: var(--add);
+}
+
+.button.update {
+    background-color: var(--update);
+}
+
+.button.warning {
+    background-color: var(--warning);
+}
+
+.button.muted {
+    background-color: var(--muted);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.red-tag {
+    background-color: var(--warning);
+    padding: 0.5rem 1rem;
+    color: white;
+}
+
+.blue-tag {
+    background-color: var(--update);
+    padding: 0.5rem 1rem;
+    color: white;
+}
+
+.muted-tag {
+    background-color: var(--muted);
+    padding: 0.5rem;
+    color: white;
+}
+
+.link-color {
+    color: var(--update);
+}
+
+.block {
+    display: inline-block;
+}

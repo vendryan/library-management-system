@@ -1,0 +1,45 @@
+main {
+    max-width: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+
+.print-btn {
+    background-color: crimson;
+    margin: 1rem 0;
+    display: block;
+}
+
+.card-title {
+    background-color: blue;
+    color: white;
+    width: 100%;
+}
+
+.member-field {
+    display: grid;
+    grid-template-columns: repeat(16, calc(45rem / 16));
+}
+
+.member-field .span1 {
+    grid-column: 4 / 6;
+}
+
+.member-field .span2 {
+    grid-column: 6 / 7;
+    text-align: center;
+}
+
+.member-field .span3 {
+    grid-column: 7 / 14;
+}
+
+@media print {
+    header, .print-btn {
+        display: none;
+    }
+}
